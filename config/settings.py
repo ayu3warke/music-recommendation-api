@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     "user_profiles",
     "recommendations",
     "analytics_api",
+    "music",
 ]
 
 MIDDLEWARE = [

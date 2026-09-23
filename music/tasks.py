@@ -2,7 +2,7 @@ import json
 
 from celery import shared_task
 
-from users.models import UserProfile
+from user_profiles.models import UserProfile
 from .models import Song
 from config.redis_client import redis_client
 

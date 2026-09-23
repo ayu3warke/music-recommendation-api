@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .models import Song, Activity
-from users.models import UserProfile
+from user_profiles.models import UserProfile
 from config.redis_client import redis_client
 from .tasks import refresh_recommendations
 

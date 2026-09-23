@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("music", "0001_initial"),
-        ("users", "0001_initial"),
+        ("user_profiles", "0001_initial"),
     ]
 
     operations = [
@@ -39,8 +39,8 @@ class Migration(migrations.Migration):
                     "user",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name="activities",
-                        to="users.userprofile",
+                        related_name="music_activities",
+                        to="user_profiles.userprofile",
                     ),
                 ),
             ],

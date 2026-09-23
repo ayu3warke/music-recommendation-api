@@ -12,9 +12,9 @@ class Song(models.Model):
 
 class Activity(models.Model):
     user = models.ForeignKey(
-        "users.UserProfile",
+        "user_profiles.UserProfile",
         on_delete=models.CASCADE,
-        related_name="activities"
+        related_name="music_activities"
     )
 
     activity_type = models.CharField(max_length=50)
