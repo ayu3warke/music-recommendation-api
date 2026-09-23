@@ -9,3 +9,23 @@ class Song(models.Model):
 
     def __str__(self):
         return self.title
+
+class Activity(models.Model):
+    user = models.ForeignKey(
+        "users.UserProfile",
+        on_delete=models.CASCADE,
+        related_name="activities"
+    )
+
+    activity_type = models.CharField(max_length=50)
+    song = models.ForeignKey(
+        Song,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.name} - {self.activity_type}"

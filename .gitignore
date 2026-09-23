@@ -3,4 +3,6 @@ __pycache__/
 *.pyc
 db.sqlite3
 .env
+.env.docker
+musicdb_backup.sql
 .DS_Store

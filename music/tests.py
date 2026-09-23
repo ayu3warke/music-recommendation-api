@@ -2,7 +2,7 @@ from django.test import TestCase
 from rest_framework.test import APIClient
 
 from users.models import UserProfile
-from .models import Song
+from .models import Song, Activity
 
 
 class MusicAPITestCase(TestCase):
@@ -70,8 +70,6 @@ class MusicAPITestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(len(response.data) > 0)
 
-        # Highest scoring song should be first
-        # Both Perfect and Shape of You should have the highest score
         self.assertEqual(response.data[0]["score"], 8)
 
         titles = [song["title"] for song in response.data]
@@ -103,5 +101,36 @@ class MusicAPITestCase(TestCase):
 
     def test_recommendations_user_not_found(self):
         response = self.client.get("/recommendations/999/")
+
+        self.assertEqual(response.status_code, 404)
+
+    def test_create_activity(self):
+        response = self.client.post(
+            "/activity/",
+            {
+                "user_id": self.user.id,
+                "activity_type": "played",
+                "song_id": 1,
+            },
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.data["user_id"], self.user.id)
+        self.assertEqual(response.data["activity_type"], "played")
+        self.assertEqual(response.data["song_id"], 1)
+
+        self.assertEqual(Activity.objects.count(), 1)
+
+    def test_create_activity_user_not_found(self):
+        response = self.client.post(
+            "/activity/",
+            {
+                "user_id": 999,
+                "activity_type": "played",
+                "song_id": 1,
+            },
+            format="json",
+        )
 
         self.assertEqual(response.status_code, 404)
